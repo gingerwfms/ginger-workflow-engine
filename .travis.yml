@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - 5.4
+
+services:
+
+before_script:
+  - composer self-update
+  - composer --dev install
+
+script:
+  - php ./vendor/bin/phpunit -c ./tests/.
+
