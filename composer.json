@@ -27,6 +27,8 @@
         "zendframework/zendframework": "2.2.*",
         "malocher/cqrs-esb" : "1.*",
         "malocher/zf2-cqrs-module" : "1.*",
+        "malocher/event-store" : "dev-master",
+        "malocher/zf2-event-store-module" : "dev-master",
         "gingerwfms/ginger-core" : "dev-master"
     },
     "autoload": {

@@ -3,6 +3,7 @@ return array(
     'modules' => array(        
         'GingerCore',
         'MalocherCqrsModule',
+        'MalocherEventStoreModule',
         'GingerWorkflowEngine'
     ),
     'module_listener_options' => array(
@@ -12,6 +13,7 @@ return array(
         'module_paths' => array(
             './',
             'vendor',
+            'module',
         ),
     ),
 );
