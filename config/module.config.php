@@ -7,5 +7,9 @@
  * file that was distributed with this source code.
  */
 return array(
-    
+    'service_manager' => array(
+        'factories' => array(
+            'wf-engine.eventstore' => ''
+        )
+    )
 );
