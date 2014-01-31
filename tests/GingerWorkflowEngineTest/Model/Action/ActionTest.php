@@ -13,6 +13,7 @@ namespace GingerWorkflowEngineTest\Model\Action;
 use GingerWorkflowEngine\Model\Action\Action;
 use GingerWorkflowEngine\Model\Action\ActionId;
 use GingerWorkflowEngine\Model\Action\Arguments;
+use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use GingerWorkflowEngineTest\TestCase;
@@ -59,7 +60,7 @@ class ActionTest extends TestCase
         $this->command = new Action(
             $anActionId,
             new Type(Type::COMMAND),
-            'Testcommand',
+            new Name('Testcommand'),
             $anArguments,
             $this->workflowRunId
         );
@@ -67,7 +68,7 @@ class ActionTest extends TestCase
         $this->query = new Action(
             new ActionId(Uuid::uuid4()),
             new Type(Type::QUERY),
-            'Testquery',
+            new Name('Testquery'),
             $anArguments,
             $this->workflowRunId
         );
@@ -93,7 +94,7 @@ class ActionTest extends TestCase
 
     public function testName()
     {
-        $this->assertEquals('Testcommand', $this->command->name());
+        $this->assertEquals('Testcommand', $this->command->name()->toString());
     }
 
     public function testArguments()
@@ -111,7 +112,7 @@ class ActionTest extends TestCase
         $sameAction = new Action(
             new ActionId($this->uuid),
             new Type(Type::COMMAND),
-            'Testcommand',
+            new Name('Testcommand'),
             new Arguments(array('foo' => 'bar')),
             $this->workflowRunId
         );

@@ -12,6 +12,7 @@ use Codeliner\Domain\Shared\EntityInterface;
 use GingerWorkflowEngine\Model\Action\Action;
 use GingerWorkflowEngine\Model\Action\ActionId;
 use GingerWorkflowEngine\Model\Action\Arguments;
+use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunCreated;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunStarted;
@@ -175,13 +176,13 @@ class WorkflowRun extends EventSourcedObject implements EntityInterface
     }
 
     /**
-     * @param $aName
-     * @param Type $aType
+     * @param Name      $aName
+     * @param Type      $aType
      * @param Arguments $anArguments
      * @return Action
      * @throws Exception\ActionCreationFailedException
      */
-    public function createAction($aName, Type $aType, Arguments $anArguments)
+    public function createAction(Name $aName, Type $aType, Arguments $anArguments)
     {
         if (!$this->isRunning()) {
             throw new ActionCreationFailedException(
