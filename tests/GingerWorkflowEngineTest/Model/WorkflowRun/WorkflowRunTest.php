@@ -10,6 +10,8 @@
  */
 
 namespace GingerWorkflowEngineTest\Model\WorkflowRun;
+use GingerWorkflowEngine\Model\Action\Arguments;
+use GingerWorkflowEngine\Model\Action\Type;
 use GingerWorkflowEngine\Model\WorkflowRun\Exception\WorkflowRunNotStartedException;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
@@ -135,5 +137,42 @@ class WorkflowRunTest extends TestCase
         $aWorkflowRun->stop();
 
         $this->assertFalse($aWorkflowRun->isRunning());
+    }
+
+    public function testCreateAction()
+    {
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+
+        $aWorkflowRun->start();
+
+        $anAction = $aWorkflowRun->createAction('Testcommand', new Type(Type::COMMAND), new Arguments(array()));
+
+        $this->assertTrue($aWorkflowRun->workflowRunId()->sameValueAs($anAction->workflowRunId()));
+        $this->assertEquals('Testcommand', $anAction->name());
+        $this->assertTrue($anAction->isCommand());
+    }
+
+    /**
+     * @expectedException \GingerWorkflowEngine\Model\WorkflowRun\Exception\ActionCreationFailedException
+     */
+    public function testCreateActionThrowsExceptionIfNotStarted()
+    {
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun->createAction('Testcommand', new Type(Type::COMMAND), new Arguments(array()));
+
+    }
+
+    /**
+     * @expectedException \GingerWorkflowEngine\Model\WorkflowRun\Exception\ActionCreationFailedException
+     */
+    public function testCreateActionThrowsExceptionIfAlreadyStopped()
+    {
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+
+        $aWorkflowRun->start();
+
+        $aWorkflowRun->stop();
+
+        $aWorkflowRun->createAction('Testcommand', new Type(Type::COMMAND), new Arguments(array()));
     }
 } 
