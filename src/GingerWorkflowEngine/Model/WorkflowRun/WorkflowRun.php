@@ -9,9 +9,14 @@
 namespace GingerWorkflowEngine\Model\WorkflowRun;
 
 use Codeliner\Domain\Shared\EntityInterface;
+use GingerWorkflowEngine\Model\Action\Action;
+use GingerWorkflowEngine\Model\Action\ActionId;
+use GingerWorkflowEngine\Model\Action\Arguments;
+use GingerWorkflowEngine\Model\Action\Type;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunCreated;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunStarted;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunStopped;
+use GingerWorkflowEngine\Model\WorkflowRun\Exception\ActionCreationFailedException;
 use GingerWorkflowEngine\Model\WorkflowRun\Exception\WorkflowRunAlreadyStartedException;
 use GingerWorkflowEngine\Model\WorkflowRun\Exception\WorkflowRunAlreadyStoppedException;
 use GingerWorkflowEngine\Model\WorkflowRun\Exception\WorkflowRunNotStartedException;
@@ -167,6 +172,34 @@ class WorkflowRun extends EventSourcedObject implements EntityInterface
         }
 
         return $this->stoppedOn;
+    }
+
+    /**
+     * @param $aName
+     * @param Type $aType
+     * @param Arguments $anArguments
+     * @return Action
+     * @throws Exception\ActionCreationFailedException
+     */
+    public function createAction($aName, Type $aType, Arguments $anArguments)
+    {
+        if (!$this->isRunning()) {
+            throw new ActionCreationFailedException(
+                sprintf(
+                    'Action creation failed. WorkflowRun %s is not running',
+                    $this->workflowRunId()->toString()
+                )
+            );
+        }
+
+        return new Action(
+            new ActionId(Uuid::uuid4()),
+            $aType,
+            $aName,
+            $anArguments,
+            $this->workflowRunId()
+
+        );
     }
 
     /**
