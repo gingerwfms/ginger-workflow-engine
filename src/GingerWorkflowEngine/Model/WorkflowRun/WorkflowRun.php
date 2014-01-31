@@ -25,6 +25,9 @@ use Rhumsaa\Uuid\Uuid;
  * A WorkflowRun manages a set of associated Actions.
  * It collects basic information like the time when it starts execution and when it ends.
  * It is responsible for creating Actions and prepare them for running.
+ * After an Action was processed the Result or the published Events caused by an Action are
+ * collected and passed to the WorkflowRun, so that they can be requested by Roles that perform
+ * following Actions.
  * 
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
