@@ -40,7 +40,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 'repository_map' => array(
-                    'GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun' => 'GingerWorkflowEngine\Infrastructure\Persistence\WorkflowRunRepositoryEventStore'
+                    'GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun' => 'GingerWorkflowEngine\Infrastructure\Persistence\WorkflowRunRepositoryEventStore',
+                    'GingerWorkflowEngine\Model\Action\Action'           => 'GingerWorkflowEngine\Infrastructure\Persistence\ActionRepositoryEventStore'
                 )
             ));
 
