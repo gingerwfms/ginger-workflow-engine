@@ -29,5 +29,5 @@ interface ActionRepository
      * @param ActionId $anActionId
      * @return Action|null
      */
-    public function getFromActionId(ActionId $anActionId);
+    public function getActionOfId(ActionId $anActionId);
 } 

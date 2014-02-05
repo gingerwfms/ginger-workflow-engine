@@ -35,7 +35,7 @@ class ActionRepositoryEventStoreTest extends TestCase
         $this->actionRepository = $this->getTestEventStore()->getRepository('GingerWorkflowEngine\Model\Action\Action');
     }
 
-    public function testStoreAndGetFromActionId()
+    public function testStoreAndGetActionOfId()
     {
         $uuid = Uuid::uuid4();
 
@@ -57,7 +57,7 @@ class ActionRepositoryEventStoreTest extends TestCase
 
         $this->getTestEventStore()->clear();
 
-        $loadedAction = $this->actionRepository->getFromActionId($anActionId);
+        $loadedAction = $this->actionRepository->getActionOfId($anActionId);
 
         $this->assertNotNull($loadedAction);
 

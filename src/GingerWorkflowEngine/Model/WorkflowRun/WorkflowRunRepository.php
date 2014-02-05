@@ -29,5 +29,5 @@ interface WorkflowRunRepository
      * @param WorkflowRunId $aWorkflowRunId
      * @return WorkflowRun|null
      */
-    public function getFromWorkflowRunId(WorkflowRunId $aWorkflowRunId);
+    public function getWorkflowRunOfId(WorkflowRunId $aWorkflowRunId);
 } 

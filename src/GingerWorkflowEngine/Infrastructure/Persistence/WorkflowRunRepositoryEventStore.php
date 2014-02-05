@@ -37,7 +37,7 @@ class WorkflowRunRepositoryEventStore extends EventSourcingRepository implements
      * @param WorkflowRunId $aWorkflowRunId
      * @return WorkflowRun|null
      */
-    public function getFromWorkflowRunId(WorkflowRunId $aWorkflowRunId)
+    public function getWorkflowRunOfId(WorkflowRunId $aWorkflowRunId)
     {
         return $this->find($aWorkflowRunId->toString());
     }
