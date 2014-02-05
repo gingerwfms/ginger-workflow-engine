@@ -38,7 +38,7 @@ class ActionRepositoryEventStore extends EventSourcingRepository implements Acti
      * @param ActionId $anActionId
      * @return Action|null
      */
-    public function getFromActionId(ActionId $anActionId)
+    public function getActionOfId(ActionId $anActionId)
     {
         return $this->find($anActionId->toString());
     }

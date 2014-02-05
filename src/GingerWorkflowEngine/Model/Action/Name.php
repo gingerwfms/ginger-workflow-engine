@@ -6,41 +6,44 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  * 
- * Date: 30.01.14 - 21:44
+ * Date: 31.01.14 - 20:05
  */
 
 namespace GingerWorkflowEngine\Model\Action;
 
+use Assert\Assertion;
 use Codeliner\Domain\Shared\ValueObjectInterface;
-use Rhumsaa\Uuid\Uuid;
 
 /**
- * Class ActionId
+ * Class Name
  *
  * @package GingerWorkflowEngine\Model\Action
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-class ActionId implements ValueObjectInterface
+class Name implements ValueObjectInterface
 {
     /**
-     * @var Uuid
+     * @var string
      */
-    private $uuid;
+    private $name;
 
     /**
-     * @param Uuid $uuid
+     * @param string $name
      */
-    public function __construct(Uuid $uuid)
+    public function __construct($name)
     {
-        $this->uuid = $uuid;
+        Assertion::string($name, "Action.name must be a string");
+        Assertion::minLength($name, 5, "Action.name must at least be 5 chars long");
+
+        $this->name = $name;
     }
 
     /**
-     * @string
+     * @return string
      */
     public function toString()
     {
-        return $this->uuid->toString();
+        return $this->name;
     }
 
     /**
@@ -51,14 +54,13 @@ class ActionId implements ValueObjectInterface
         return $this->toString();
     }
 
-
     /**
      * @param ValueObjectInterface $other
      * @return boolean
      */
     public function sameValueAs(ValueObjectInterface $other)
     {
-        if (!$other instanceof ActionId) {
+        if (!$other instanceof Name) {
             return false;
         }
 

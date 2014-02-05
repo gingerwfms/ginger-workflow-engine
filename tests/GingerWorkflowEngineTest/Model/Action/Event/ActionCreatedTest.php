@@ -56,7 +56,7 @@ class ActionCreatedTest extends TestCase
 
     public function testActionName()
     {
-        $this->assertEquals('ATestCommand', $this->actionCreated->actionName());
+        $this->assertEquals('ATestCommand', $this->actionCreated->actionName()->toString());
     }
 
     public function testActionArguments()

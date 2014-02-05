@@ -36,7 +36,7 @@ class WorkflowRunRepositoryEventStoreTest extends TestCase
         $this->workflowRunRepository = $this->getTestEventStore()->getRepository('GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun');
     }
 
-    public function testStoreAndGetFromWorkflowRunId()
+    public function testStoreAndGetWorkflowRunOfId()
     {
         $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
 
@@ -44,7 +44,7 @@ class WorkflowRunRepositoryEventStoreTest extends TestCase
 
         $this->getTestEventStore()->clear();
 
-        $persistedWorkflowRun = $this->workflowRunRepository->getFromWorkflowRunId($aWorkflowRun->workflowRunId());
+        $persistedWorkflowRun = $this->workflowRunRepository->getWorkflowRunOfId($aWorkflowRun->workflowRunId());
 
         $this->assertNotSame($persistedWorkflowRun, $aWorkflowRun);
         $this->assertTrue($aWorkflowRun->sameIdentityAs($persistedWorkflowRun));

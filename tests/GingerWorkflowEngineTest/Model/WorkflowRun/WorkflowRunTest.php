@@ -11,6 +11,7 @@
 
 namespace GingerWorkflowEngineTest\Model\WorkflowRun;
 use GingerWorkflowEngine\Model\Action\Arguments;
+use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
 use GingerWorkflowEngine\Model\WorkflowRun\Exception\WorkflowRunNotStartedException;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun;
@@ -145,10 +146,10 @@ class WorkflowRunTest extends TestCase
 
         $aWorkflowRun->start();
 
-        $anAction = $aWorkflowRun->createAction('Testcommand', new Type(Type::COMMAND), new Arguments(array()));
+        $anAction = $aWorkflowRun->createAction(new Name('Testcommand'), new Type(Type::COMMAND), new Arguments(array()));
 
         $this->assertTrue($aWorkflowRun->workflowRunId()->sameValueAs($anAction->workflowRunId()));
-        $this->assertEquals('Testcommand', $anAction->name());
+        $this->assertEquals('Testcommand', $anAction->name()->toString());
         $this->assertTrue($anAction->isCommand());
     }
 
@@ -158,7 +159,7 @@ class WorkflowRunTest extends TestCase
     public function testCreateActionThrowsExceptionIfNotStarted()
     {
         $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
-        $aWorkflowRun->createAction('Testcommand', new Type(Type::COMMAND), new Arguments(array()));
+        $aWorkflowRun->createAction(new Name('Testcommand'), new Type(Type::COMMAND), new Arguments(array()));
 
     }
 
@@ -173,6 +174,6 @@ class WorkflowRunTest extends TestCase
 
         $aWorkflowRun->stop();
 
-        $aWorkflowRun->createAction('Testcommand', new Type(Type::COMMAND), new Arguments(array()));
+        $aWorkflowRun->createAction(new Name('Testcommand'), new Type(Type::COMMAND), new Arguments(array()));
     }
 } 

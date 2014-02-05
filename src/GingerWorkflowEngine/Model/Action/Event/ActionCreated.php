@@ -13,6 +13,7 @@ namespace GingerWorkflowEngine\Model\Action\Event;
 use Codeliner\Domain\Shared\DomainEventInterface;
 use GingerWorkflowEngine\Model\Action\ActionId;
 use GingerWorkflowEngine\Model\Action\Arguments;
+use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use Malocher\EventStore\EventSourcing\ObjectChangedEvent;
@@ -43,11 +44,11 @@ class ActionCreated extends ObjectChangedEvent implements DomainEventInterface
     }
 
     /**
-     * @return string
+     * @return Name
      */
     public function actionName()
     {
-        return $this->payload['name'];
+        return new Name($this->payload['name']);
     }
 
     /**

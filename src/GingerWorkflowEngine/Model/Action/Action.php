@@ -11,7 +11,6 @@
 
 namespace GingerWorkflowEngine\Model\Action;
 
-use Assert\Assertion;
 use Codeliner\Domain\Shared\EntityInterface;
 use GingerWorkflowEngine\Model\Action\Event\ActionCreated;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
@@ -45,7 +44,7 @@ class Action extends EventSourcedObject implements EntityInterface
     private $type;
 
     /**
-     * @var string
+     * @var Name
      */
     private $name;
 
@@ -62,25 +61,24 @@ class Action extends EventSourcedObject implements EntityInterface
     /**
      * @param ActionId      $anActionId
      * @param Type          $aType
-     * @param string        $name
+     * @param Name          $aName
      * @param Arguments     $anArguments
      * @param WorkflowRunId $aWorkflowRunId
      */
     public function __construct(
         ActionId $anActionId,
         Type $aType,
-        $name,
+        Name $aName,
         Arguments $anArguments,
         WorkflowRunId $aWorkflowRunId)
     {
-        Assertion::string($name, "Action.name must be string");
-        Assertion::minLength($name, 5, "Action.name must at least be 5 chars long");
+
 
         $anActionCreated = new ActionCreated(
             array(
                 'actionId'      => $anActionId->toString(),
                 'type'          => $aType->toString(),
-                'name'          => $name,
+                'name'          => $aName->toString(),
                 'arguments'     => $anArguments->toString(),
                 'workflowRunId' => $aWorkflowRunId->toString()
             )
@@ -114,7 +112,7 @@ class Action extends EventSourcedObject implements EntityInterface
     }
 
     /**
-     * @return string
+     * @return Name
      */
     public function name()
     {

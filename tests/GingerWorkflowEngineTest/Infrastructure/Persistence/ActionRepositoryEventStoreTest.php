@@ -15,6 +15,7 @@ use GingerWorkflowEngine\Infrastructure\Persistence\ActionRepositoryEventStore;
 use GingerWorkflowEngine\Model\Action\Action;
 use GingerWorkflowEngine\Model\Action\ActionId;
 use GingerWorkflowEngine\Model\Action\Arguments;
+use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use GingerWorkflowEngineTest\TestCase;
@@ -34,7 +35,7 @@ class ActionRepositoryEventStoreTest extends TestCase
         $this->actionRepository = $this->getTestEventStore()->getRepository('GingerWorkflowEngine\Model\Action\Action');
     }
 
-    public function testStoreAndGetFromActionId()
+    public function testStoreAndGetActionOfId()
     {
         $uuid = Uuid::uuid4();
 
@@ -47,7 +48,7 @@ class ActionRepositoryEventStoreTest extends TestCase
         $anAction = new Action(
             $anActionId,
             new Type(Type::COMMAND),
-            'Testcommand',
+            new Name('Testcommand'),
             $anArguments,
             $workflowRunId
         );
@@ -56,7 +57,7 @@ class ActionRepositoryEventStoreTest extends TestCase
 
         $this->getTestEventStore()->clear();
 
-        $loadedAction = $this->actionRepository->getFromActionId($anActionId);
+        $loadedAction = $this->actionRepository->getActionOfId($anActionId);
 
         $this->assertNotNull($loadedAction);
 

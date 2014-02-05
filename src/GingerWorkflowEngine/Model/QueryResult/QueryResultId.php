@@ -6,21 +6,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  * 
- * Date: 30.01.14 - 21:44
+ * Date: 01.02.14 - 22:39
  */
 
-namespace GingerWorkflowEngine\Model\Action;
+namespace GingerWorkflowEngine\Model\QueryResult;
 
 use Codeliner\Domain\Shared\ValueObjectInterface;
 use Rhumsaa\Uuid\Uuid;
 
 /**
- * Class ActionId
+ * Class QueryResultId
  *
- * @package GingerWorkflowEngine\Model\Action
+ * @package GingerWorkflowEngine\Model\QueryResult
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-class ActionId implements ValueObjectInterface
+class QueryResultId implements ValueObjectInterface
 {
     /**
      * @var Uuid
@@ -58,10 +58,10 @@ class ActionId implements ValueObjectInterface
      */
     public function sameValueAs(ValueObjectInterface $other)
     {
-        if (!$other instanceof ActionId) {
+        if (!$other instanceof QueryResultId) {
             return false;
         }
 
         return $this->toString() === $other->toString();
     }
-}
+} 
