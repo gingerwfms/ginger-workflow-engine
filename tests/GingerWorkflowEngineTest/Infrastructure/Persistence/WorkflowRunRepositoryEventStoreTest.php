@@ -11,6 +11,7 @@
 
 namespace GingerWorkflowEngineTest\Infrastructure\Persistence;
 use GingerWorkflowEngine\Infrastructure\Persistence\WorkflowRunRepositoryEventStore;
+use GingerWorkflowEngine\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use GingerWorkflowEngineTest\TestCase;
@@ -38,7 +39,7 @@ class WorkflowRunRepositoryEventStoreTest extends TestCase
 
     public function testStoreAndGetWorkflowRunOfId()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $this->workflowRunRepository->store($aWorkflowRun);
 

@@ -14,6 +14,7 @@ use GingerWorkflowEngine\Model\Action\ActionId;
 use GingerWorkflowEngine\Model\Action\Arguments;
 use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
+use GingerWorkflowEngine\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunCreated;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunStarted;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunStopped;
@@ -45,6 +46,11 @@ class WorkflowRun extends EventSourcedObject implements EntityInterface
     private $workflowRunId;
 
     /**
+     * @var WorkflowId
+     */
+    private $workflowId;
+
+    /**
      * @var \DateTime
      */
     private $startedOn;
@@ -57,10 +63,17 @@ class WorkflowRun extends EventSourcedObject implements EntityInterface
     /**
      * @param WorkflowRunId $workflowRunId
      */
-    public function __construct(WorkflowRunId $workflowRunId)
+    public function __construct(WorkflowRunId $aWorkflowRunId, WorkflowId $aWorkflowId)
     {
         //construct is not invoked, when WorkflowRun is reloaded, so we know that this is a new WorkflowRun
-        $this->update(new WorkflowRunCreated(array('workflowRunId' => $workflowRunId->toString())));
+        $this->update(
+            new WorkflowRunCreated(
+                array(
+                    'workflowRunId' => $aWorkflowRunId->toString(),
+                    'workflowId'    => $aWorkflowId->toString(),
+                )
+            )
+        );
     }
 
     /**
@@ -69,6 +82,14 @@ class WorkflowRun extends EventSourcedObject implements EntityInterface
     public function workflowRunId()
     {
         return $this->workflowRunId;
+    }
+
+    /**
+     * @return WorkflowId
+     */
+    public function workflowId()
+    {
+        return $this->workflowId;
     }
 
     /**
@@ -232,6 +253,7 @@ class WorkflowRun extends EventSourcedObject implements EntityInterface
     protected function onWorkflowRunCreated(WorkflowRunCreated $event)
     {
         $this->workflowRunId = $event->workflowRunId();
+        $this->workflowId    = $event->workflowId();
     }
 
     /**

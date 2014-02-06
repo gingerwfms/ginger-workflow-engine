@@ -12,6 +12,7 @@
 namespace GingerWorkflowEngine\Model\WorkflowRun\Event;
 
 use Codeliner\Domain\Shared\DomainEventInterface;
+use GingerWorkflowEngine\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use Malocher\EventStore\EventSourcing\ObjectChangedEvent;
 use Rhumsaa\Uuid\Uuid;
@@ -24,9 +25,20 @@ use Rhumsaa\Uuid\Uuid;
  */
 class WorkflowRunCreated extends ObjectChangedEvent implements DomainEventInterface
 {
+    /**
+     * @return WorkflowRunId
+     */
     public function workflowRunId()
     {
         return new WorkflowRunId(Uuid::fromString($this->payload['workflowRunId']));
+    }
+
+    /**
+     * @return WorkflowId
+     */
+    public function workflowId()
+    {
+        return new WorkflowId($this->payload['workflowId']);
     }
     /**
      * @return \DateTime
