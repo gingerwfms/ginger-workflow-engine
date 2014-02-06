@@ -13,6 +13,7 @@ namespace GingerWorkflowEngineTest\Model\WorkflowRun;
 use GingerWorkflowEngine\Model\Action\Arguments;
 use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
+use GingerWorkflowEngine\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\Exception\WorkflowRunNotStartedException;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
@@ -30,14 +31,15 @@ class WorkflowRunTest extends TestCase
     public function testConstruct()
     {
         $uuid = Uuid::uuid4();
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId($uuid));
+        $workflowRun = new WorkflowRun(new WorkflowRunId($uuid), new WorkflowId('1234'));
 
-        $this->assertEquals($uuid, $aWorkflowRun->workflowRunId()->toString());
+        $this->assertEquals($uuid, $workflowRun->workflowRunId()->toString());
+        $this->assertEquals('1234', $workflowRun->workflowId()->toString());
     }
 
     public function testStartAndIsStartedAndThrowsExceptionIfAlreadyStarted()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 
@@ -50,7 +52,7 @@ class WorkflowRunTest extends TestCase
 
     public function testStartedOn()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 
@@ -62,14 +64,14 @@ class WorkflowRunTest extends TestCase
      */
     public function testStartedOnThrowsExceptionIfNotStarted()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->startedOn();
     }
 
     public function testStopAndIsStopped()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 
@@ -83,7 +85,7 @@ class WorkflowRunTest extends TestCase
      */
     public function testStopThrowsExceptionIfNotStarted()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->stop();
     }
@@ -93,7 +95,7 @@ class WorkflowRunTest extends TestCase
      */
     public function testStopThrowsExceptionIfIsStopped()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 
@@ -104,7 +106,7 @@ class WorkflowRunTest extends TestCase
 
     public function testStoppedOn()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 
@@ -118,7 +120,7 @@ class WorkflowRunTest extends TestCase
      */
     public function stoppedOnThrowsExceptionIfNotStopped()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 
@@ -127,7 +129,7 @@ class WorkflowRunTest extends TestCase
 
     public function testIsRunning()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $this->assertFalse($aWorkflowRun->isRunning());
 
@@ -142,7 +144,7 @@ class WorkflowRunTest extends TestCase
 
     public function testCreateAction()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 
@@ -158,7 +160,7 @@ class WorkflowRunTest extends TestCase
      */
     public function testCreateActionThrowsExceptionIfNotStarted()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
         $aWorkflowRun->createAction(new Name('Testcommand'), new Type(Type::COMMAND), new Arguments(array()));
 
     }
@@ -168,7 +170,7 @@ class WorkflowRunTest extends TestCase
      */
     public function testCreateActionThrowsExceptionIfAlreadyStopped()
     {
-        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()));
+        $aWorkflowRun = new WorkflowRun(new WorkflowRunId(Uuid::uuid4()), new WorkflowId('1234'));
 
         $aWorkflowRun->start();
 

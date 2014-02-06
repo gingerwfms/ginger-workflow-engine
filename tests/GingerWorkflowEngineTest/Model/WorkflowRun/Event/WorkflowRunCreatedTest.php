@@ -25,10 +25,28 @@ class WorkflowRunCreatedTest extends TestCase
     public function testWorkflowRunId()
     {
         $uuid = Uuid::uuid4();
-        $event = new WorkflowRunCreated(array('workflowRunId' => $uuid->toString()));
+        $event = new WorkflowRunCreated(
+            array(
+                'workflowRunId' => $uuid->toString(),
+                'workflowId'    => '1234'
+            )
+        );
 
-        $aWorkflowRunId = $event->workflowRunId();
+        $workflowRunId = $event->workflowRunId();
 
-        $this->assertEquals($uuid->toString(), $aWorkflowRunId->toString());
+        $this->assertEquals($uuid->toString(), $workflowRunId->toString());
+    }
+
+    public function testWorkflowId()
+    {
+        $uuid = Uuid::uuid4();
+        $event = new WorkflowRunCreated(
+            array(
+                'workflowRunId' => $uuid->toString(),
+                'workflowId'    => '1234'
+            )
+        );
+
+        $this->assertEquals('1234', $event->workflowId()->toString());
     }
 } 
