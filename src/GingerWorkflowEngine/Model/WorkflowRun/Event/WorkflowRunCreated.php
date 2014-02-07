@@ -12,7 +12,7 @@
 namespace GingerWorkflowEngine\Model\WorkflowRun\Event;
 
 use Codeliner\Domain\Shared\DomainEventInterface;
-use GingerWorkflowEngine\Model\Workflow\WorkflowId;
+use GingerCore\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use Malocher\EventStore\EventSourcing\ObjectChangedEvent;
 use Rhumsaa\Uuid\Uuid;

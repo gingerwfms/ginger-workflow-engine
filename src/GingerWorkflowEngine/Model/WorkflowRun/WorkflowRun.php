@@ -9,12 +9,12 @@
 namespace GingerWorkflowEngine\Model\WorkflowRun;
 
 use Codeliner\Domain\Shared\EntityInterface;
+use GingerCore\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\Action\Action;
 use GingerWorkflowEngine\Model\Action\ActionId;
 use GingerWorkflowEngine\Model\Action\Arguments;
 use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
-use GingerWorkflowEngine\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunCreated;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunStarted;
 use GingerWorkflowEngine\Model\WorkflowRun\Event\WorkflowRunStopped;

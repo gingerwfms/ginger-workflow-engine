@@ -10,11 +10,12 @@
  */
 
 namespace GingerWorkflowEngineTest\Infrastructure\Persistence;
+
 use GingerWorkflowEngine\Infrastructure\Persistence\WorkflowRunRepositoryEventStore;
-use GingerWorkflowEngine\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use GingerWorkflowEngineTest\TestCase;
+use GingerCore\Model\Workflow\WorkflowId;
 use Rhumsaa\Uuid\Uuid;
 
 /**

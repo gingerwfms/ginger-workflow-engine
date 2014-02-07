@@ -10,11 +10,11 @@
  */
 
 namespace GingerWorkflowEngineTest\Model\WorkflowRun;
+
 use GingerWorkflowEngine\Model\Action\Arguments;
 use GingerWorkflowEngine\Model\Action\Name;
 use GingerWorkflowEngine\Model\Action\Type;
-use GingerWorkflowEngine\Model\Workflow\WorkflowId;
-use GingerWorkflowEngine\Model\WorkflowRun\Exception\WorkflowRunNotStartedException;
+use GingerCore\Model\Workflow\WorkflowId;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRun;
 use GingerWorkflowEngine\Model\WorkflowRun\WorkflowRunId;
 use GingerWorkflowEngineTest\TestCase;
